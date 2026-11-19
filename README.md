@@ -1,4 +1,4 @@
-# PhiUSIIL Baseline Implementation
+# 1. PhiUSIIL Baseline Implementation
 
 ## Reference
 **Paper:** PhiUSIIL: A Diverse Security Profile Empowered Phishing URL Detection Framework Based on Similarity Index and Incremental Learning
@@ -36,3 +36,60 @@ The results were obtained using incremental evaluation, where predictions are ge
 ## Limitations
 
 This experiment includes URL and webpage-derived features and is not a URL-only pre-navigation evaluation.
+
+# 2. GramBeddings Baseline Implementation
+
+## Reference
+
+**Paper:** GramBeddings: A New Neural Network for URL Based Identification of Phishing Web Pages Through N-gram Embeddings
+
+**Original code:** https://github.com/fcdalgic/GramBeddings
+
+**Dataset:** Official GramBeddings dataset from Hacettepe University.
+
+## Implementation
+
+This baseline adapts the authors' GramBeddings implementation to run on Kaggle with TensorFlow.
+
+The model uses character-level and n-gram embeddings with parallel CNN, BiLSTM, and attention branches for phishing URL classification.
+
+**Configuration:**
+- Training examples: 636,803
+- Validation examples: 159,188
+- N-grams: 3, 4, 5
+- Maximum sequence length: 128
+- Embedding dimension: 15
+- LSTM cell size: 256
+- Batch size: 128
+- Epochs: 5
+- GPU: Kaggle T4
+
+The implementation includes compatibility changes to the authors' original code, including an update to the pooling operation.
+
+## Results
+
+| Metric | Value |
+|---|---:|
+| Validation accuracy | 98.08% |
+| Validation precision | 98.56% |
+| Validation recall | 97.57% |
+| Validation F1-score | 98.06% |
+| Validation AUC | 0.9976 |
+
+Reported best epoch: 1.
+
+These are validation results, not independent held-out test results.
+
+## Reproduction
+
+1. Download the original GramBeddings dataset.
+2. Open `GramBeddings_Implementation.ipynb` in Kaggle.
+3. Attach the dataset and enable a GPU.
+4. Run the notebook cells in order.
+5. The notebook trains the model and exports the evaluation metrics.
+
+## Limitations
+
+The original implementation required compatibility modifications for the current TensorFlow and scikit-learn environment. In particular, a pooling layer was modified, so this is an adaptation of the published architecture rather than an exact reproduction.
+
+The validation set is also used during model selection.
