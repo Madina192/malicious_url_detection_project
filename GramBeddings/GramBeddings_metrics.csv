@@ -1,0 +1,2 @@
+run_type,train_examples,validation_examples,best_epoch,validation_accuracy,validation_precision,validation_recall,validation_f1,validation_auc
+full dataset,636803,159188,1,0.980777,0.985555,0.975711,0.980608,0.997565
