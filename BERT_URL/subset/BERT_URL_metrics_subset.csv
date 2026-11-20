@@ -1,0 +1,2 @@
+model,dataset,classes,samples_per_class,train_examples,validation_examples,test_examples,epochs,batch_size,learning_rate,max_length,accuracy,precision_macro,recall_macro,f1_macro,method
+bert-base-cased,sid321axn/malicious-urls-dataset,"benign,defacement,phishing,malware",10000,28800,3200,8000,3,16,1e-05,128,0.955875,0.9565624740907004,0.955875,0.9559827834098357,independent reimplementation; 80/20 outer split and inner validation
