@@ -93,3 +93,52 @@ These are validation results, not independent held-out test results.
 The original implementation required compatibility modifications for the current TensorFlow and scikit-learn environment. In particular, a pooling layer was modified, so this is an adaptation of the published architecture rather than an exact reproduction.
 
 The validation set is also used during model selection.
+
+# 3. BERT-Based Malicious URL Detection
+
+## Reference
+
+**Paper:** BERT-Based Approaches to Identifying Malicious URLs (Sensors, 2023)
+
+**Dataset:** https://www.kaggle.com/datasets/sid321axn/malicious-urls-dataset
+
+## Implementation
+
+This is an independent reimplementation of the paper's BERT-based URL classification approach using Hugging Face Transformers on Kaggle.
+
+The model classifies raw URLs into four categories: **benign, defacement, phishing, and malware**.
+
+**Training configuration:**
+- Model: `bert-base-cased`
+- Maximum sequence length: 128
+- Learning rate: 1e-5
+- Batch size: 16
+- Epochs: 3
+- Data split: 72% train / 8% validation / 20% test
+- Optimizer: AdamW
+
+Two experiments were conducted:
+- **40K:** Balanced dataset with 10,000 URLs per class.
+- **100K:** Larger dataset preserving the original class distribution.
+
+## Results
+
+| Metric | 40K | 100K |
+|---|---:|---:|
+| Accuracy | 95.59% | 97.77% |
+| Macro Precision | 95.66% | 97.01% |
+| Macro Recall | 95.59% | 95.63% |
+| Macro F1 | 95.60% | 96.27% |
+
+Results were obtained on held-out test sets.
+
+## Reproduction
+
+1. Open `BERT_URL_Implementation.ipynb` in Kaggle.
+2. Attach the Malicious URLs Dataset and enable GPU.
+3. Configure the dataset size and run all cells.
+4. Export the evaluation metrics and confusion matrix.
+
+## Limitations
+
+The authors' original code was unavailable, so the implementation follows the published methodology. Training was limited to 3 epochs, and only URL-string classification was implemented. The two experiments have different class distributions, so their results are not directly comparable as a controlled dataset-size experiment.
