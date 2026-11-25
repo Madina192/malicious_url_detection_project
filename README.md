@@ -142,3 +142,55 @@ Results were obtained on held-out test sets.
 ## Limitations
 
 The authors' original code was unavailable, so the implementation follows the published methodology. Training was limited to 3 epochs, and only URL-string classification was implemented. The two experiments have different class distributions, so their results are not directly comparable as a controlled dataset-size experiment.
+
+# 4. URLGuard Baseline Implementation
+
+## Reference
+
+**Paper:** MalURLBench: A Benchmark Evaluating Agents' Vulnerabilities When Processing Web URLs (Findings of ACL, 2026)
+
+**Original code:** https://github.com/JiangYingEr/MalURLBench
+
+**Released adapter:** https://huggingface.co/nonamehhh/URLGuard
+
+**Evaluation dataset:** https://www.kaggle.com/datasets/sid321axn/malicious-urls-dataset
+
+## Implementation
+
+This baseline evaluates the authors' released URLGuard model using Kaggle GPU.
+
+The implementation loads `Llama-2-7b-chat-hf` with 4-bit quantization and attaches the authors' fine-tuned LoRA adapter. No additional training was performed.
+
+The model assesses URLs using three risk levels: **No Risk, Medium Risk, and High Risk**.
+
+**Evaluation configuration:**
+- Base model: Llama-2-7B-Chat
+- Adapter: URLGuard (LoRA)
+- Dataset: Malicious URLs Dataset
+- Evaluation samples: 40 and 200 URLs
+- Class distribution: Balanced (50% benign, 50% malicious)
+- Prompt: Simplified URL risk assessment
+
+## Results
+
+| Metric | 40 URLs | 200 URLs |
+|---|---:|---:|
+| Accuracy | 69.23% | 57.36% |
+| Malicious precision | 70.00% | 58.16% |
+| Malicious recall | 70.00% | 57.00% |
+| Malicious F1 | 70.00% | 57.58% |
+| Unparseable responses | 1 | 3 |
+
+## Reproduction
+
+1. Open `URLGuard_Implementation.ipynb` in Kaggle.
+2. Enable GPU and Internet access.
+3. Configure the Hugging Face access token with permission for Llama-2.
+4. Attach the Malicious URLs Dataset.
+5. Run the notebook to generate predictions and evaluation metrics.
+
+## Limitations
+
+This implementation evaluates the released URLGuard adapter without retraining. It uses a simplified risk-assessment prompt and an external dataset instead of the original MalURLBench agent scenarios.
+
+The reported accuracy is calculated only on parseable responses. Therefore, these results are not directly comparable with the paper's original benchmark results or the other baselines.
