@@ -1,0 +1,2 @@
+model,evaluation,total_examples,scored_examples,unparseable,accuracy,malicious_precision,malicious_recall,malicious_f1
+URLGuard (released adapter),"simplified prompt, external URL dataset",200,197,3,0.5736040609137056,0.5816326530612245,0.57,0.5757575757575758
